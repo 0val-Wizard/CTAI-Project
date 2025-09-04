@@ -1,0 +1,74 @@
+[
+    {
+        "id": 1,
+        "name": "Product 1",
+        "price": "$10.00",
+        "description": "Description for Product 1",
+        "category": "clothes",
+        "images": {
+            "red": ["images/product_1/red/1.png", "images/product_1/red/2.png"],
+            "blue": ["images/product_1/blue/1.png", "images/product_1/blue/2.png"],
+            "green": ["images/product_1/green/1.png", "images/product_1/green/2.png"]
+        }
+    },
+    {
+        "id": 2,
+        "name": "Product 2",
+        "price": "$10.00",
+        "description": "Description for Product 2",
+        "category": "clothes",
+        "images": {
+            "red": ["images/product_2/red/1.png", "images/product_2/red/2.png"],
+            "blue": ["images/product_2/blue/1.png", "images/product_2/blue/2.png"],
+            "green": ["images/product_2/green/1.png", "images/product_2/green/2.png"]
+        }
+    },
+    {
+        "id": 3,
+        "name": "Product 3",
+        "price": "$15.00",
+        "description": "Description for Product 3",
+        "category": "clothes",
+        "images": {
+            "red": ["images/product_3/red/1.png", "images/product_3/red/2.png"],
+            "blue": ["images/product_3/blue/1.png", "images/product_3/blue/2.png"],
+            "green": ["images/product_3/green/1.png", "images/product_3/green/2.png"]
+        }
+    },
+    {
+        "id": 4,
+        "name": "Product 4",
+        "price": "$15.00",
+        "description": "Description for Product 4",
+        "category": "new-arrivals",
+        "images": {
+            "red": ["images/product_4/red/1.png", "images/product_4/red/2.png"],
+            "blue": ["images/product_4/blue/1.png", "images/product_4/blue/2.png"],
+            "green": ["images/product_4/green/1.png", "images/product_4/green/2.png"]
+        }
+    },
+    {
+        "id": 5,
+        "name": "Product 5",
+        "price": "$15.00",
+        "description": "Description for Product 5",
+        "category": "new-arrivals",
+        "images": {
+            "red": ["images/product_5/red/1.png", "images/product_5/red/2.png"],
+            "blue": ["images/product_5/blue/1.png", "images/product_5/blue/2.png"],
+            "green": ["images/product_5/green/1.png", "images/product_5/green/2.png"]
+        }
+    },
+    {
+        "id": 6,
+        "name": "Product 6",
+        "price": "$15.00",
+        "description": "Description for Product 6",
+        "category": "new-arrivals",
+        "images": {
+            "red": ["images/product_6/red/1.png", "images/product_6/red/2.png"],
+            "blue": ["images/product_6/blue/1.png", "images/product_6/blue/2.png"],
+            "green": ["images/product_6/green/1.png", "images/product_6/green/2.png"]
+        }
+    }
+]

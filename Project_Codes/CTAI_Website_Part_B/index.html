@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce Shopping Store</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #ffe5d9;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo img {
+            height: 50px;
+        }
+        .search-box {
+            display: flex;
+        }
+        .search-box input[type="text"] {
+            padding: 5px;
+            border: none;
+            border-radius: 3px 0 0 3px;
+            outline: none;
+        }
+        .search-box button {
+            padding: 6px 10px;
+            border: none;
+            background-color: white;
+            color: #007bff;
+            cursor: pointer;
+            border-radius: 0 3px 3px 0;
+            outline: none;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+        .container {
+            padding: 20px;
+            margin-top: 60px; /* Adjust to account for fixed header */
+        }
+        .category {
+            margin-bottom: 40px;
+        }
+        .category h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .product {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            width: calc(33.333% - 20px);
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        .product img {
+            width: 100%;
+            height: auto;
+            border-bottom: 1px solid #ddd;
+        }
+        .product h2, .product p {
+            margin: 10px;
+            font-size: 16px;
+        }
+        .product button {
+            margin: 10px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .product button:hover {
+            background: #0056b3;
+        }
+        .heart-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #ccc;
+            cursor: pointer;
+            font-size: 24px;
+            transition: color 0.3s;
+        }
+        .heart-icon.clicked {
+            color: red;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        /* Slideshow Styles */
+        .slideshow-container {
+            position: relative;
+            max-width: 100%;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        .mySlides {
+            display: none;
+            width: 100%;
+        }
+        .slide-img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 18px;
+            transition: background-color 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+        .dot-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .dot {
+            cursor: pointer;
+            height: 15px;
+            width: 15px;
+            margin: 0 2px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+        }
+        .dot.active {
+            background-color: #007bff;
+        }
+        /* Footer Styles */
+        footer {
+            background-color: #ffe5d9;
+            color: black;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="E-Commerce Shopping Store" id="logo-img">
+        </div>
+        <div class="search-box">
+            <input type="text" placeholder="Search...">
+            <button type="button">Search</button>
+        </div>
+        <nav>
+            <a href="index.html"><i class="fas fa-home"></i></a>
+            <a href="shopping_cart.html"><i class="fas fa-shopping-cart"></i></a>
+            <a href="#" onclick="openProfileModal()"><i class="fas fa-user"></i></a>
+        </nav>        
+    </header>
+    
+    <div class="slideshow-container">
+        <div class="mySlides fade">
+            <img src="images/sale1.jpg" alt="Sale 1" class="slide-img">
+        </div>
+        <div class="mySlides fade">
+            <img src="images/sale2.jpg" alt="Sale 2" class="slide-img">
+        </div>
+        <div class="mySlides fade">
+            <img src="images/sale3.jpg" alt="Sale 3" class="slide-img">
+        </div>
+        <!-- Navigation arrows -->
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+    <!-- Dots -->
+    <div class="dot-container">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
+
+    <div class="container">
+        <!-- Categories and Products will be dynamically inserted here -->
+    </div>
+
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Sign Up</h2>
+            <form>
+                <input type="text" placeholder="Name">
+                <input type="email" placeholder="Email">
+                <input type="password" placeholder="Password">
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="profile_modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeProfileModal()">&times;</span>
+            <h2>Change Password</h2>
+            <form id="changePasswordForm">
+                <input type="email" id="email" placeholder="Enter your email" required>
+                <input type="password" id="newPassword" placeholder="New password" required>
+                <button type="submit">Change Password</button>
+            </form>
+        </div>
+    </div>
+    
+    
+    <footer>
+        <p>&copy; 2024 E-Commerce Shopping Store</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('https://ctai-project-part-2-shubham-kaushik.s3.amazonaws.com/products.json')
+                .then(response => response.json())
+                .then(products => {  // Fetch products directly as an array
+                    const container = document.querySelector('.container');
+                    const categories = Array.from(new Set(products.map(product => product.category)));
+
+                    categories.forEach(category => {
+                        const categorySection = document.createElement('div');
+                        categorySection.classList.add('category');
+                        categorySection.innerHTML = `
+                            <h2>${category}</h2>
+                            <div class="products">
+                                ${products.filter(product => product.category === category)
+                                    .map(product => `
+                                        <div class="product" onclick="goToProductDetails('${product.id}')">
+                                            <img src="${product.images.red[0]}" alt="${product.name}">  <!-- Use the first image from the red color option -->
+                                            <h2>${product.name}</h2>
+                                            <p>${product.description}</p>
+                                            <p><strong>${product.price}</strong></p>
+                                            <button onclick="addToCart(event, '${product.id}')">Add to Cart</button>
+                                            <i class="fas fa-heart heart-icon" onclick="toggleFavorite(event, this)"></i>
+                                        </div>
+                                    `).join('')}
+                            </div>
+                        `;
+                        container.appendChild(categorySection);
+                    });
+                });
+
+
+            // Slideshow functionality
+            let slideIndex = 0;
+            showSlides();
+
+            function showSlides() {
+                const slides = document.querySelectorAll('.mySlides');
+                const dots = document.querySelectorAll('.dot');
+                slides.forEach((slide, index) => {
+                    slide.style.display = (index === slideIndex) ? 'block' : 'none';
+                });
+                dots.forEach((dot, index) => {
+                    dot.className = dot.className.replace(' active', '');
+                    if (index === slideIndex) dot.className += ' active';
+                });
+                slideIndex = (slideIndex + 1) % slides.length;
+                setTimeout(showSlides, 2000); // Change slide every 2 seconds
+            }
+
+            window.plusSlides = function(n) {
+                showSlides(slideIndex += n); 
+            }
+
+            window.currentSlide = function(n) {
+                showSlides(slideIndex = n - 1);
+            }
+
+            document.getElementById('changePasswordForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                const email = document.getElementById('email').value;
+                const newPassword = document.getElementById('newPassword').value;
+
+                if (email && newPassword) {
+                    fetch('https://od3o4lcbzk.execute-api.us-east-1.amazonaws.com/auth-prod/change-password', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            email: email,
+                            newPassword: newPassword
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.message) {
+                            alert(data.message);
+                            closeProfileModal(); // Close modal on success
+                            window.location.href = 'authentication.html'; // Redirect to authentication page
+                        } else {
+                            alert(data.error);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred. Please try again.');
+                    });
+                } else {
+                    alert('Please fill in all fields.');
+                }
+            });
+
+        });
+
+        function toggleFavorite(event, icon) {
+            event.stopPropagation();
+            icon.classList.toggle('clicked');
+        }
+
+        function addToCart(event, productId) {
+            event.stopPropagation();
+            alert(`Product ${productId} added to cart!`);
+        }
+
+        function goToProductDetails(productId) {
+            window.location.href = `product_details.html?id=${productId}`;
+        }
+
+        function openProfileModal() {
+            document.getElementById('profile_modal').style.display = 'block';
+        }
+
+        function closeProfileModal() {
+            document.getElementById('profile_modal').style.display = 'none';
+        }
+
+        function openModal() {
+            document.getElementById('signupModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('signupModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
